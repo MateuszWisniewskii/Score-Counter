@@ -1,2 +1,3 @@
 # Score-Counter
-Multiplatform application for counting points
+Score Counter is an project from university in Application development for mobile and embedded devices.
+
