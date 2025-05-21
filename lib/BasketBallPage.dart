@@ -14,6 +14,7 @@ class _BasketBallPageState extends State<BasketBallPage> {
   late int _quart;
   late int _time;
   Timer? _timer;
+  late bool _isRunning;
 
   void _scoreUp(int points, int team) {
     if (_timer != null && _timer!.isActive) {
@@ -51,25 +52,43 @@ class _BasketBallPageState extends State<BasketBallPage> {
     }
   }
 
+  void _toggleTimer() {
+    if (!_isRunning) {
+      _startTimer();
+    } else {
+      _stopTimer();
+    }
+    setState(() {
+      _isRunning = !_isRunning;
+    });
+  }
+
   void _nextQuart() {
     if ((_timer != null && _timer!.isActive) || _time != 0 || _quart >= 4)
       return;
 
     setState(() {
-      _time = 10;
+      _time = 600; // 10 minutes
       _quart++;
     });
   }
 
-  void _summary() {}
+  void _summary() {} // TO DO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  String _formatTime(int secondsLeft){
+  final minutes = (secondsLeft ~/ 60).toString().padLeft(2, '0');
+  final seconds = (secondsLeft % 60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
+  }
 
   @override
   void initState() {
     super.initState();
     _score_1 = 0;
     _score_2 = 0;
-    _time = 10;
+    _time = 600; // 10 minutes
     _quart = 1;
+    _isRunning = false;
   }
 
   @override
@@ -86,7 +105,10 @@ class _BasketBallPageState extends State<BasketBallPage> {
             child: Container(
               alignment: Alignment.center,
               color: Colors.blueAccent,
-              child: Text("$_score_1", style: TextStyle(color: Colors.white, fontSize: 64)),
+              child: Text(
+                "$_score_1",
+                style: TextStyle(color: Colors.white, fontSize: 64),
+              ),
             ),
           ),
           Row(
@@ -95,22 +117,31 @@ class _BasketBallPageState extends State<BasketBallPage> {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => _scoreUp(1, 1),
-                  child: Text("+1", style: TextStyle(color: Colors.white, fontSize: 32)),
-                  style: TextButton.styleFrom(backgroundColor: Colors.blue)
+                  child: Text(
+                    "+1",
+                    style: TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  style: TextButton.styleFrom(backgroundColor: Colors.blue),
                 ),
               ),
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => _scoreUp(2, 1),
-                  child: Text("+2", style: TextStyle(color: Colors.white, fontSize: 32)),
-                  style: TextButton.styleFrom(backgroundColor: Colors.blue)
+                  child: Text(
+                    "+2",
+                    style: TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  style: TextButton.styleFrom(backgroundColor: Colors.blue),
                 ),
               ),
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => _scoreUp(3, 1),
-                  child: Text("+3", style: TextStyle(color: Colors.white, fontSize: 32)),
-                  style: TextButton.styleFrom(backgroundColor: Colors.blue)
+                  child: Text(
+                    "+3",
+                    style: TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  style: TextButton.styleFrom(backgroundColor: Colors.blue),
                 ),
               ),
             ],
@@ -119,18 +150,28 @@ class _BasketBallPageState extends State<BasketBallPage> {
           // Time control section
           //////////////////////////////////////////////////////////////////////
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ElevatedButton(onPressed: _startTimer, child: Text("START")),
               Container(
-                child: Text(_time == 0 ? "Time OUT" : "Time lef: $_time"),
+                width: 110.0,
+                child: OutlinedButton(
+                  onPressed: _toggleTimer,
+                  child: Text(_isRunning ? "STOP" : "START", textAlign: TextAlign.center),
+                ),
               ),
-              Container(child: Text("Quarter No: $_quart")),
-              ElevatedButton(onPressed: _stopTimer, child: Text("STOP")),
-              ElevatedButton(
-                onPressed: _quart <= 4 ? () => _nextQuart() : () => _summary(),
-                child: Text(
-                  _quart < 4 ? "Go to next quart" : "Go to match summary",
+              Column(
+                children: [
+                  Text(_time == 0 ? "Time OUT" : "Time left:", textAlign: TextAlign.center),
+                  Text(_formatTime(_time), textAlign: TextAlign.center, style: TextStyle(fontSize: 48)),
+                  Text("Quarter No: $_quart", textAlign: TextAlign.center),
+                ],
+              ),
+              Container(
+                width: 110.0,
+                child: OutlinedButton(
+                  onPressed:
+                      _quart <= 4 ? () => _nextQuart() : () => _summary(),
+                  child: Text(_quart < 4 ? "Next quart" : "Summary", textAlign: TextAlign.center),
                 ),
               ),
             ],
@@ -141,28 +182,46 @@ class _BasketBallPageState extends State<BasketBallPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Expanded(child:ElevatedButton(
-                onPressed: () => _scoreUp(1, 2),
-                child: Text("+1", style: TextStyle(color: Colors.white, fontSize: 32)),
-                style: TextButton.styleFrom(backgroundColor: Colors.red)
-              )),
-              Expanded( child:ElevatedButton(
-                onPressed: () => _scoreUp(2, 2),
-                child: Text("+2", style: TextStyle(color: Colors.white, fontSize: 32)),
-                style: TextButton.styleFrom(backgroundColor: Colors.red)
-              )),
-              Expanded(child:ElevatedButton(
-                onPressed: () => _scoreUp(3, 2),
-                child: Text("+3", style: TextStyle(color: Colors.white, fontSize: 32)),
-                style: TextButton.styleFrom(backgroundColor: Colors.red)
-              )),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => _scoreUp(1, 2),
+                  child: Text(
+                    "+1",
+                    style: TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  style: TextButton.styleFrom(backgroundColor: Colors.red),
+                ),
+              ),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => _scoreUp(2, 2),
+                  child: Text(
+                    "+2",
+                    style: TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  style: TextButton.styleFrom(backgroundColor: Colors.red),
+                ),
+              ),
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => _scoreUp(3, 2),
+                  child: Text(
+                    "+3",
+                    style: TextStyle(color: Colors.white, fontSize: 32),
+                  ),
+                  style: TextButton.styleFrom(backgroundColor: Colors.red),
+                ),
+              ),
             ],
           ),
           Expanded(
             child: Container(
               alignment: Alignment.center,
               color: Colors.redAccent,
-              child: Text("$_score_2", style: TextStyle(color: Colors.white, fontSize: 64)),
+              child: Text(
+                "$_score_2",
+                style: TextStyle(color: Colors.white, fontSize: 64),
+              ),
             ),
           ),
         ],
