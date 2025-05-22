@@ -64,8 +64,7 @@ class _BasketBallPageState extends State<BasketBallPage> {
   }
 
   void _nextQuart() {
-    if ((_timer != null && _timer!.isActive) || _time != 0 || _quart >= 4)
-      return;
+    if ((_timer != null && _timer!.isActive) || _time != 0 || _quart >= 4) return;
 
     setState(() {
       _time = 600; // 10 minutes
