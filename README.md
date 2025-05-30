@@ -3,4 +3,4 @@ Score Counter is an project from university in Application development for mobil
 
 To continue developing this app, after cloning repository, in terminal run:
 flutter pub get
-futter run
+flutter run
