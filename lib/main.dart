@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:score_counter/AppRoutes.dart';
+import 'package:provider/provider.dart';
+import 'package:score_counter/app_routes.dart';
+import 'package:score_counter/basketball_controller.dart';
 
 void main() {
-  runApp(MainApp());
+  runApp(ChangeNotifierProvider(create: (context) => BasketballController(),child: MainApp(),));
 }
 
 class MainApp extends StatelessWidget {

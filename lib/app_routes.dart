@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'HomePage.dart';
-import 'BasketBallPage.dart';
-import 'SettingsPage.dart';
+import 'home_page.dart';
+import 'basketball_page.dart';
+import 'settings_page.dart';
 
 Map<String,WidgetBuilder> appRoutes = {
   '/': (BuildContext constext) => HomePage(),
