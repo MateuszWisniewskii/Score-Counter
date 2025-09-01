@@ -28,3 +28,25 @@ flutter pub get
 
 # Uruchomienie aplikacji na emulatorze / telefonie
 flutter run
+```
+
+---
+
+## 🧪 Testy
+
+Uruchomienie wszystkich testów jednostkowych i widgetowych:
+
+```bash
+flutter test
+```
+
+---
+
+## ⚡ CI/CD
+
+Projekt posiada workflow GitHub Actions, który:
+
+- Instaluje Flutter
+- Pobiera zależności
+- Uruchamia testy
+- Buduje APK i wersję webową
