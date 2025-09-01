@@ -1,6 +1,27 @@
-# Score-Counter
-Score Counter is an project from university in Application development for mobile and embedded devices.
+# 🎯 Score Counter
 
-To continue developing this app, after cloning repository, in terminal run:
+Aplikacja Flutter do zliczania punktów w grze.  
+Projekt stworzony w ramach zajęć/projektu uczelnianego.
+
+---
+
+## 🚀 Wymagania
+
+- [Flutter](https://flutter.dev/docs/get-started/install) w wersji **stable**
+- Android Studio / VS Code z pluginem Flutter
+- Emulator lub urządzenie fizyczne z Android/iOS
+
+---
+
+## ⚙️ Instalacja i uruchomienie
+
+```bash
+# Klonowanie repo
+git clone https://github.com/MateuszWisniewskii/Score-Counter.git
+cd Score-Counter
+
+# Pobranie zależności
 flutter pub get
+
+# Uruchomienie aplikacji na emulatorze / telefonie
 flutter run

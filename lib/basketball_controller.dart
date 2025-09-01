@@ -5,19 +5,50 @@ class BasketballController extends ChangeNotifier {
   int score1 = 0;
   int score2 = 0;
   int quart = 1;
-  int time = 600; // 10 minut
+  int time = 0;
+
+  int totalRounds = 4;
+  int initialTime = 600;
+  int maxPointsPerShot = 3;
+  bool trackTeam1 = true;
+  bool trackTeam2 = true;
+  bool useTimer = true;
+
   Timer? _timer;
   bool isRunning = false;
 
+  void setupGame({
+    required int timeMinutes,
+    required int totalRounds,
+    required int maxPoints,
+    required bool team1,
+    required bool team2,
+    required bool useTimer,
+  }) {
+    score1 = 0;
+    score2 = 0;
+    quart = 1;
+
+    initialTime = timeMinutes * 60;
+    time = initialTime;
+    this.totalRounds = totalRounds;
+    maxPointsPerShot = maxPoints;
+    trackTeam1 = team1;
+    trackTeam2 = team2;
+    this.useTimer = useTimer;
+
+    notifyListeners();
+  }
+
   void scoreUp(int points, int team) {
-    if (_timer != null && _timer!.isActive) {
-      if (team == 1) {
-        score1 += points;
-      } else {
-        score2 += points;
-      }
-      notifyListeners();
+    if (useTimer && (_timer == null || !_timer!.isActive)) return;
+
+    if (team == 1 && trackTeam1) {
+      score1 += points;
+    } else if (team == 2 && trackTeam2) {
+      score2 += points;
     }
+    notifyListeners();
   }
 
   void _startTimer() {
@@ -49,8 +80,10 @@ class BasketballController extends ChangeNotifier {
   }
 
   void nextQuart() {
-    if ((_timer != null && _timer!.isActive) || time != 0 || quart >= 4) return;
-    time = 600;
+    if ((useTimer && (time > 0 || (_timer?.isActive ?? false))) ||
+        quart >= totalRounds) return;
+
+    time = initialTime;
     quart++;
     notifyListeners();
   }
@@ -61,7 +94,8 @@ class BasketballController extends ChangeNotifier {
     return "$minutes:$seconds";
   }
 
-  void summary(){
-    
+  void summary() {
+    stopTimer();
+    // Tu możesz dorobić np. ekran z podsumowaniem wyników
   }
 }
