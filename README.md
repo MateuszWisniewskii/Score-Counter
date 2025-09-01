@@ -1,6 +1,5 @@
 # 🎯 Score Counter
 
-![Flutter CI](https://github.com/MateuszWisniewskii/Score-Counter/actions/workflows/ci.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![GitHub repo size](https://img.shields.io/github/repo-size/MateuszWisniewskii/Score-Counter)
 
