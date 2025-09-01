@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-class BasketballController extends ChangeNotifier {
+class GameController extends ChangeNotifier {
   int score1 = 0;
   int score2 = 0;
   int quart = 1;
@@ -96,6 +96,6 @@ class BasketballController extends ChangeNotifier {
 
   void summary() {
     stopTimer();
-    // Tu możesz dorobić np. ekran z podsumowaniem wyników
+    
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:score_counter/basketball_controller.dart';
+import 'package:score_counter/game_controller.dart';
 
 class SetupPage extends StatefulWidget {
   @override
@@ -66,7 +66,7 @@ class _SetupPageState extends State<SetupPage> {
             ElevatedButton(
               child: const Text("Start"),
               onPressed: () {
-                final controller = Provider.of<BasketballController>(
+                final controller = Provider.of<GameController>(
                     context, listen: false);
 
                 controller.setupGame(
@@ -78,7 +78,7 @@ class _SetupPageState extends State<SetupPage> {
                   useTimer: useTimer,
                 );
 
-                Navigator.pushNamed(context, '/basketballpage');
+                Navigator.pushNamed(context, '/gamepage');
               },
             )
           ],

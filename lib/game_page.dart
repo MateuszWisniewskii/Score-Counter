@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:score_counter/basketball_controller.dart';
+import 'package:score_counter/game_controller.dart';
 
-class BasketBallPage extends StatelessWidget {
-  const BasketBallPage({super.key});
+class GamePage extends StatelessWidget {
+  const GamePage({super.key});
 
-  List<Widget> _buildScoreButtons(BasketballController value, int team) {
+  List<Widget> _buildScoreButtons(GameController value, int team) {
     return List.generate(value.maxPointsPerShot, (i) {
       final points = i + 1;
       return Expanded(
@@ -25,9 +25,9 @@ class BasketBallPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<BasketballController>(
+    return Consumer<GameController>(
       builder: (context, value, child) => Scaffold(
-        appBar: AppBar(title: const Text("BASKETBALL PAGE")),
+        appBar: AppBar(title: const Text("GAME PAGE")),
         body: Column(
           children: [
             if (value.trackTeam1) ...[
